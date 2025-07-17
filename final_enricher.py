@@ -20,7 +20,7 @@ def enrich_row(ticker):
         df = yf.download(ticker, period='30d', interval='1d', progress=False).reset_index()
         df.columns = [col.lower() if isinstance(col,str) else col for col in df.columns]
         if len(df) < max(DAYS_FORWARD)+1:
-            return []
+            return None
         df = calculate_returns(df)
         df = add_technical_indicators(df)
         latest = df.iloc[-(max(DAYS_FORWARD)+1)].copy()
@@ -36,7 +36,7 @@ def enrich_row(ticker):
         return enriched
     except Exception as e:
         print(f'Error enriching {ticker}: {e}')
-        return []
+        return None
 
 def enrich_csv(input_csv, output_csv):
     base_df = pd.read_csv(input_csv)
@@ -44,7 +44,7 @@ def enrich_csv(input_csv, output_csv):
     for _, row in base_df.iterrows():
         ticker = row['Ticker']
         enriched = enrich_row(ticker)
-        if enriched:
+        if enriched is not None:
             enriched_rows.append(enriched)
     final_df = pd.DataFrame(enriched_rows)
     final_df.to_csv(output_csv, index=False)
