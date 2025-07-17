@@ -85,6 +85,7 @@ def main():
         combined_strategies.to_csv(strategies_path, index=False)
         print(f'✅ Saved combined strategy setups to {strategies_path}')
     if all_combined_strategies:
+        os.makedirs('results', exist_ok=True)
         all_strategies_path = os.path.join('results', 'combined_all_strategy_signals.csv')
         pd.concat(all_combined_strategies, ignore_index=True).to_csv(all_strategies_path, index=False)
         print(f'✅ Saved combined strategy signals to {all_strategies_path}')
