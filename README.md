@@ -38,7 +38,7 @@ pip install yfinance pandas numpy ta-lib mplfinance opencv-python
 
 - **pattern_scanner.py** – Scans ticker data for candlestick and visual patterns. Returns a summary of detected patterns.
 
-**Typical workflow**
+##Typical workflow
 
 - **Run screener.py**
 Downloads the most active NASDAQ tickers, filters them by price/volume/volatility, and writes a CSV report. Environment variables EMAIL_SENDER, EMAIL_PASSWORD, and EMAIL_RECEIVER must be set for emailing the results (see lines 23‑30 in screener.py).
